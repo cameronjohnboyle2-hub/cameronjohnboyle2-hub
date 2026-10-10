@@ -4,6 +4,8 @@
 
 I build AI-assisted products and operational tools, with a focus on useful workflows, clear product decisions, and evidence that the intended behavior works. I’m interested in roles where I can combine building, user feedback, and data-informed decisions.
 
+[LinkedIn](https://www.linkedin.com/in/cameron-boyle/)
+
 ## Featured work
 
 | Project | What it demonstrates | Explore |
