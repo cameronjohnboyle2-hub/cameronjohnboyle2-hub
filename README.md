@@ -16,6 +16,14 @@ The public demos use fictional data and show selected workflows. GALS and Khmer 
 | **Khmer Cash Flow** | Did most of the AI-assisted development on a shared English/Khmer revenue-tracking app. Helped train about 200 small-business owners and supported approximately 50 regular users through field feedback and improvements. | [Case study](https://github.com/cameronjohnboyle2-hub/fictional-ledger-showcase/blob/Website/CASE_STUDY.md) · [Demo](https://cameronjohnboyle2-hub.github.io/fictional-ledger-showcase/) |
 | **BYU IS Career Compass** | Contributed LiveKit interview integration, session fixes and an audio-responsive interface to a team-built career exploration platform. | [Shared project and current status](https://github.com/nola4211/byu-is-career-compass) · [Merged contribution](https://github.com/nola4211/byu-is-career-compass/pull/9) |
 
+## Recent builds
+
+| Project | What I worked on | Explore |
+| --- | --- | --- |
+| **PurposeBridge** · BYU AI Day Hackathon | I built a prototype that turns nonprofit requests into classroom projects. Switch between nonprofit director, teacher, and student to follow the workflow from idea to reviewed submission. The AI helpers are simulated. | [Repository](https://github.com/cameronjohnboyle2-hub/purposebridge) · [Browser demo](https://cameronjohnboyle2-hub.github.io/purposebridge/) |
+| **Lucid Virtual Office** · Team hackathon project | I helped shape the roadmap for a shared office agent that asks teammates for missing information and brings a draft back for human review. The team built a multiplayer pixel-art office with proximity audio and collaboration tools. | [Team repository](https://github.com/nathanbrimhall/lucidhackathonfall2026) · [Shared agent roadmap](https://github.com/nathanbrimhall/lucidhackathonfall2026/commit/377facf553b8e4b7106ebec8082c95451b54a4a5) |
+| **Cluck & Squeak** · Creative side project | I built a chicken-vs-mouse simulator for the browser and FigJam. The board becomes the terrain, and classroom mode turns selected stickers into armies for a short battle. | [Project write-up](docs/CLUCK_AND_SQUEAK.md) |
+
 ## More experiments
 
 - [Scroll League](https://cameronjohnboyle2-hub.github.io/scroll-league-showcase/): a quick AI-assisted prototype exploring screen-time competition, manual entries, goals and standings. [Prototype source](https://github.com/cameronjohnboyle2-hub/scroll-league-showcase).
