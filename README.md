@@ -27,6 +27,10 @@ The public demos use fictional data and show selected workflows. GALS and Khmer 
 
 ## More experiments
 
+- **Dragonfield LAN Co-op:** I built a C# prototype that adds two-player co-op to a specific Dragonfield alpha build using BepInEx and LiteNetLib. The private alpha passed a handshake between two local processes. A full battle across two physical PCs remains unverified.
+- **Neon Saber:** I built a browser rhythm game where you scan a QR code to pair your phone, calibrate its motion sensors, and swing to control a saber on the computer. It has an original 30-second level and a mouse practice mode.
+- **Ashfall Covenant:** I prototyped an original offline browser RPG with character creation, a map to explore, turn-based combat, and local saves.
+- **Customer Effort Voice Agent:** I built a LiveKit voice agent prototype for exploring customer support conversations. A local simulator lets me rehearse scripted scenarios and check how the agent responds at different points in a conversation. The prototype has yet to be used in a study.
 - [Scroll League](https://cameronjohnboyle2-hub.github.io/scroll-league-showcase/): a quick AI-assisted prototype exploring screen-time competition, manual entries, goals and standings. [Prototype source](https://github.com/cameronjohnboyle2-hub/scroll-league-showcase).
 - [Voice Support Workbench](https://github.com/cameronjohnboyle2-hub/voice-support-workbench): a fictional support scenario exploring policy-grounded voice interactions, interruption handling and handoff. Includes an [opt-in live prototype](https://cameronjohnboyle2-hub.github.io/voice-support-workbench/voice.html); the README distinguishes its implementations and testing limits.
 - [Simple Time Tracker](https://github.com/cameronjohnboyle2-hub/time-tracker-showcase): a fictional extract of my retired bilingual team time-clock tool, showing clock entries, corrections and admin review.
