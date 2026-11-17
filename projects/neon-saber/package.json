@@ -1,0 +1,17 @@
+{
+  "name": "neon-saber",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "dev": "node server.mjs",
+    "start": "node server.mjs",
+    "test": "node --test tests/neon-saber.test.mjs"
+  },
+  "dependencies": {
+    "qrcode-generator": "1.4.4"
+  }
+}

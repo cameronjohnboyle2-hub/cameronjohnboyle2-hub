@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#05030d">
+  <title>Neon Saber</title>
+  <link rel="stylesheet" href="/game.css?v=5">
+</head>
+<body>
+  <canvas id="arena" aria-label="Neon Saber game arena"></canvas>
+  <main id="lobby" class="lobby">
+    <p class="eyebrow">PHONE MOTION RHYTHM COMBAT</p>
+    <h1><span>NEON</span> SABER</h1>
+    <p class="subhead">One phone. One motion saber. Thirty seconds.</p>
+    <section class="pair-card">
+      <div class="step"><b>1</b><span>Scan this code with your phone camera</span></div>
+      <div class="step"><b>2</b><span>Enable Motion, then touch any blue block — no arrows</span></div>
+      <div id="qr" class="qr hidden" aria-label="QR code for the phone motion controller"></div>
+      <button id="copy-link" class="phone-link" type="button">Creating secure motion link…</button>
+      <div class="code-row"><span>PAIR CODE</span><strong id="pair-code">----</strong></div>
+      <div id="connection" class="connection connecting"><i></i><span>Creating secure controller session</span></div>
+    </section>
+    <div class="lobby-actions">
+      <button id="start-game" class="primary" type="button" disabled>START LEVEL</button>
+      <button id="practice" class="secondary" type="button">PRACTICE WITH MOUSE</button>
+    </div>
+    <p class="fine-print">Grip the phone firmly and keep clear of people, pets, furniture, and screens.</p>
+  </main>
+  <section id="hud" class="hud hidden" aria-live="polite">
+    <div class="hud-score"><span>SCORE</span><strong id="score">0</strong></div>
+    <div class="hud-center"><strong id="multiplier">×1</strong><span id="combo">0 COMBO</span></div>
+    <div class="hud-song"><span>FIRST LIGHT</span><div class="progress"><i id="progress"></i></div></div>
+    <div class="energy"><i id="energy"></i></div>
+  </section>
+  <div id="countdown" class="countdown hidden">3</div>
+  <section id="results" class="results hidden">
+    <p class="eyebrow">LEVEL COMPLETE</p>
+    <div id="rank" class="rank">S</div>
+    <h2>FIRST LIGHT</h2>
+    <div class="result-grid">
+      <div><span>SCORE</span><strong id="final-score">0</strong></div>
+      <div><span>MAX COMBO</span><strong id="max-combo">0</strong></div>
+      <div><span>ACCURACY</span><strong id="accuracy">0%</strong></div>
+    </div>
+    <button id="replay" class="primary" type="button">PLAY AGAIN</button>
+    <button id="back-lobby" class="secondary" type="button">BACK TO PAIRING</button>
+  </section>
+  <div id="audio-gate" class="audio-gate hidden"><button type="button">CLICK ONCE FOR SOUND</button></div>
+  <div id="toast" class="toast" role="status"></div>
+  <script src="/vendor/qrcode.js"></script>
+  <script type="module" src="/game.js?v=5"></script>
+</body>
+</html>

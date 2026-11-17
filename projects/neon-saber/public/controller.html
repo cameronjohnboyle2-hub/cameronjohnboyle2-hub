@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+  <meta name="theme-color" content="#05030d">
+  <title>Neon Saber Controller</title>
+  <link rel="stylesheet" href="/controller.css?v=9">
+</head>
+<body>
+  <main class="shell">
+    <header>
+      <div id="status" class="status connecting"><i></i><span>CONNECTING</span></div>
+      <div class="pair"><span>PAIR</span><strong id="room">----</strong></div>
+    </header>
+
+    <section class="stage" aria-label="Phone saber position">
+      <div class="grid"></div>
+      <div class="target"></div>
+      <div id="saber" class="saber">
+        <div class="blade"></div>
+        <div class="handle"></div>
+      </div>
+      <div class="stage-copy">
+        <span>ONE SABER · 3D PHONE MOTION</span>
+        <strong id="motion-state">Hold the phone upright like a hilt</strong>
+      </div>
+    </section>
+
+    <section class="deck">
+      <p id="message" class="message" role="status">Connecting directly to your computer…</p>
+      <button id="enable-motion" class="motion-button" type="button">
+        <span>ENABLE MOTION</span>
+        <strong>&amp; CALIBRATE</strong>
+      </button>
+      <div id="play-actions" class="play-actions hidden">
+        <button id="start-level" class="start-button" type="button" disabled>START LEVEL</button>
+        <button id="center-saber" class="center-button" type="button">CENTER SABER</button>
+        <button id="run-diagnostic" class="diagnostic-button" type="button">RUN 18-SECOND MOTION TEST</button>
+        <button id="mark-issue" class="marker-button" type="button">MARK ISSUE MOMENT</button>
+      </div>
+      <p id="diagnostic-state" class="diagnostic-state">Local diagnostics will begin when the phone connects.</p>
+      <div class="score-strip">
+        <div><span>SCORE</span><strong id="score">0</strong></div>
+        <div><span>COMBO</span><strong id="combo">0</strong></div>
+      </div>
+      <p class="safety">Grip firmly. Keep clear of people, pets, furniture, and screens.</p>
+    </section>
+  </main>
+  <script type="module" src="/controller.js?v=9"></script>
+</body>
+</html>

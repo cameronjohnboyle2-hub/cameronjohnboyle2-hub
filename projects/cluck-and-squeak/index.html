@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cluck & Squeak: Tactical Battle Simulator</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐔</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <!-- App Container -->
+  <div id="app">
+    <!-- Top Navigation & Battle Bar -->
+    <header id="top-bar">
+      <div class="logo-area">
+        <span class="logo-icon">🐔⚔️🐭</span>
+        <div class="logo-text">
+          <h1>Cluck & Squeak</h1>
+          <span class="subtext">Tactical Battle Simulator</span>
+        </div>
+      </div>
+
+      <!-- Scenario Selector -->
+      <div class="scenario-area">
+        <label for="scenario-select">Scenario:</label>
+        <select id="scenario-select" class="dropdown" aria-label="Select battle scenario"></select>
+      </div>
+
+      <!-- Live Battle Strength Meter -->
+      <div class="strength-meter-container">
+        <div class="team-label chicken-lbl">
+          <span class="badge">🐔</span>
+          <span id="chicken-count" class="count">0</span>
+        </div>
+        <div class="meter-bar-track">
+          <div id="chicken-bar" class="meter-fill chicken-fill" style="width: 50%;"></div>
+          <div id="mouse-bar" class="meter-fill mouse-fill" style="width: 50%;"></div>
+        </div>
+        <div class="team-label mouse-lbl">
+          <span id="mouse-count" class="count">0</span>
+          <span class="badge">🐭</span>
+        </div>
+      </div>
+
+      <!-- Environment & Audio Settings -->
+      <div class="settings-area">
+        <button id="btn-guide" class="btn btn-secondary" title="Battle Tactics Guide">📖 Tactics</button>
+        <select id="theme-select" class="dropdown-small" aria-label="Select battlefield theme">
+          <option value="figma">Theme: Figma Dots</option>
+          <option value="meadow">Theme: Lush Meadow</option>
+          <option value="dark">Theme: Dark Arena</option>
+        </select>
+        <button id="audio-toggle" class="btn btn-ghost" title="Toggle Sound">🔊 Sound: ON</button>
+      </div>
+    </header>
+
+    <!-- Main Game Canvas -->
+    <main id="canvas-container">
+      <canvas id="battle-canvas"></canvas>
+
+      <!-- Tactical Hints / Watermark -->
+      <div class="canvas-hints">
+        <span>🖱️ Drag to Pan • ⚙️ Scroll to Zoom • ⌨️ Space: Pause/Start • <b>F</b>: Possess Unit</span>
+      </div>
+
+      <!-- Possession HUD (Active when player controls a unit) -->
+      <div id="possession-hud" class="hidden">
+        <div class="possession-badge">🎮 DIRECT UNIT POSSESSION</div>
+        <div class="possession-controls">
+          <span><b>W A S D</b> Move</span> • 
+          <span><b>SHIFT</b> Sprint/Charge</span> • 
+          <span><b>LEFT CLICK / SPACE</b> Attack</span> • 
+          <span><b>ESC</b> Exit</span>
+        </div>
+      </div>
+    </main>
+
+    <!-- Left Placement Drawer (Visible in PLACEMENT mode) -->
+    <aside id="placement-panel" class="panel">
+      <div class="panel-header">
+        <h2>Army Deployment</h2>
+        <span class="panel-tag">PLACEMENT MODE</span>
+      </div>
+
+      <!-- Team Tabs -->
+      <div class="team-tabs">
+        <button class="team-tab active" data-team="chicken">🐔 The Chickens</button>
+        <button class="team-tab" data-team="mouse">🐭 The Mice</button>
+      </div>
+
+      <!-- Unit Selector List -->
+      <div class="panel-section">
+        <label class="section-label">Select Unit Archetype</label>
+        <div id="unit-list" class="unit-list"></div>
+      </div>
+
+      <!-- Formation Selector -->
+      <div class="panel-section">
+        <label class="section-label">Formation Shape</label>
+        <div class="formation-buttons">
+          <button class="formation-btn active" data-formation="wedge" title="Pointed Wedge / Spearhead">🔺 Wedge</button>
+          <button class="formation-btn" data-formation="line" title="Rank and File Line">➖ Line</button>
+          <button class="formation-btn" data-formation="box" title="Phalanx / Block">⬛ Box</button>
+          <button class="formation-btn" data-formation="single" title="Single Unit">🎯 Single</button>
+        </div>
+      </div>
+
+      <!-- Squad Size Slider -->
+      <div class="panel-section">
+        <div class="slider-header">
+          <label class="section-label">Squad Size</label>
+          <span id="squad-count-val" class="slider-val">6</span>
+        </div>
+        <input type="range" id="squad-count-slider" min="1" max="24" value="6" class="slider" aria-label="Squad size slider">
+      </div>
+
+      <!-- Placement Instructions -->
+      <div class="placement-tips">
+        <p>💡 <b>Drag on canvas</b> to draw formation and aim facing direction.</p>
+        <p>💡 <b>Right-click</b> on an placed unit to dismiss it.</p>
+      </div>
+    </aside>
+
+    <!-- Bottom Floating Command Bar -->
+    <footer id="command-bar">
+      <div class="command-group">
+        <button id="btn-play" class="btn btn-primary btn-large">⚔️ START BATTLE</button>
+        <button id="btn-reset" class="btn btn-secondary">🔄 Reset</button>
+      </div>
+
+      <div class="command-group speed-group">
+        <span class="speed-label">Simulation Speed:</span>
+        <button class="btn btn-icon speed-btn" data-speed="0.25">0.25x</button>
+        <button class="btn btn-icon speed-btn" data-speed="0.5">0.5x</button>
+        <button class="btn btn-icon speed-btn active" data-speed="1.0">1.0x</button>
+        <button class="btn btn-icon speed-btn" data-speed="2.0">2.0x</button>
+      </div>
+
+      <div class="command-group">
+        <button id="btn-crab-horde" class="btn btn-secondary" style="border: 1.5px solid #ff4d4f; color: #cf1322; background: #fff1f0; font-weight: 700;" title="Unleash River Crab Horde! (Rebalancing Wildcard)">🦀 Crab Horde</button>
+        <button id="btn-possess" class="btn btn-secondary">🎮 Possess Unit (F)</button>
+        <button id="btn-clear" class="btn btn-danger">🗑️ Clear</button>
+      </div>
+    </footer>
+
+    <!-- Battle Tactics Guide Modal -->
+    <div id="guide-modal" class="modal-backdrop hidden">
+      <div class="modal-card modal-large">
+        <div class="modal-title">📖 Battlefield Tactics Manual</div>
+        <div class="guide-grid">
+          <div class="guide-item">
+            <span class="guide-icon">🐎💥</span>
+            <h3>Cavalry Charges</h3>
+            <p>Rooster & Cheese Knights accelerate into high-speed charges. First impact deals <b>3.2x damage</b> and sends enemies ragdolling backward!</p>
+          </div>
+          <div class="guide-item">
+            <span class="guide-icon">🛡️⚔️</span>
+            <h3>Spear Bracing</h3>
+            <p>Mice with toothpicks & Comb Guards automatically brace when facing incoming cavalry, reflecting <b>2.2x lethal damage</b> back to the chargers!</p>
+          </div>
+          <div class="guide-item">
+            <span class="guide-icon">🔄🎯</span>
+            <h3>Flanking & Envelopment</h3>
+            <p>Attacking enemies from the side or rear deals <b>+75% critical backstab damage</b> and breaks their morale into frantic routs.</p>
+          </div>
+          <div class="guide-item">
+            <span class="guide-icon">🥚🍳</span>
+            <h3>Egg Artillery</h3>
+            <p>Egg slingers launch parabolic yolk projectiles that burst into persistent yolk puddles, slowing all units inside by <b>55%</b>.</p>
+          </div>
+          <div class="guide-item">
+            <span class="guide-icon">🎮🕹️</span>
+            <h3>Direct Unit Possession</h3>
+            <p>Press <b>F</b> or click "Possess Unit" to jump into any chicken or mouse! Steer with <b>WASD</b>, sprint with <b>Shift</b>, and attack with <b>Left Click</b>.</p>
+          </div>
+          <div class="guide-item">
+            <span class="guide-icon">📐✨</span>
+            <h3>Figma Formation Drag</h3>
+            <p>In placement mode, click and drag across the dot grid to draw custom lines, wedges, or phalanx blocks facing any angle.</p>
+          </div>
+        </div>
+        <div class="modal-actions" style="margin-top: 20px;">
+          <button id="btn-guide-close" class="btn btn-primary btn-large">Got It, Commander!</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Victory / Battle Result Modal -->
+    <div id="victory-modal" class="modal-backdrop hidden">
+      <div class="modal-card">
+        <div id="victory-title" class="modal-title">🐔 THE FEATHERY HORDE WINS!</div>
+        <p id="victory-sub" class="modal-sub">Battle completed in 14.2s.</p>
+        <div class="modal-actions">
+          <button id="btn-victory-reset" class="btn btn-primary btn-large">⚔️ Replay Battle</button>
+          <button id="btn-victory-edit" class="btn btn-secondary">✏️ Edit Army Formations</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="engine/settings.js"></script>
+  <script src="engine/core.js"></script>
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>
