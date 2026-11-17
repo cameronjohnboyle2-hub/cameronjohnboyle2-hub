@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Cluck & Squeak - FigJam Perpetual Civilization Engine</title>
+  <style>
+    :root {
+      --figma-bg: var(--figma-color-bg, #ffffff);
+      --figma-text: var(--figma-color-text, #101828);
+      --figma-border: var(--figma-color-border, #e5e7eb);
+      --figma-primary: #12b76a;
+      --figma-primary-hover: #039855;
+      --figma-danger: #f04438;
+      --chicken-color: #f04438;
+      --mouse-color: #0ba5ec;
+      --crab-color: #e05263;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      user-select: none;
+      font-family: Inter, system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+      background: var(--figma-bg);
+      color: var(--figma-text);
+      font-size: 12px;
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      height: 100vh;
+      overflow-y: auto;
+    }
+
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--figma-border);
+      padding-bottom: 8px;
+    }
+
+    .title-group {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .title-icon { font-size: 22px; }
+
+    .title-text h1 {
+      font-size: 13.5px;
+      font-weight: 800;
+      line-height: 1.1;
+    }
+
+    .title-text span {
+      font-size: 9.5px;
+      color: #667085;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .card {
+      background: #f9fafb;
+      border: 1px solid var(--figma-border);
+      border-radius: 8px;
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .card-title {
+      font-size: 10.5px;
+      font-weight: 700;
+      color: #344054;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .button-row {
+      display: flex;
+      gap: 6px;
+    }
+
+    .btn {
+      flex: 1;
+      padding: 8px 10px;
+      border-radius: 6px;
+      border: 1px solid transparent;
+      font-size: 11.5px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      transition: all 0.15s ease;
+    }
+
+    .btn-primary {
+      background: var(--figma-primary);
+      color: #ffffff;
+    }
+    .btn-primary:hover { background: var(--figma-primary-hover); }
+
+    .btn-secondary {
+      background: #ffffff;
+      border-color: #d0d5dd;
+      color: #344054;
+    }
+    .btn-secondary:hover { background: #f2f4f7; }
+
+    .btn-sync {
+      background: #f0fdf4;
+      border-color: #86efac;
+      color: #15803d;
+      font-weight: 700;
+    }
+
+    .btn-crab {
+      background: #fff0f1;
+      border-color: #ff4d4f;
+      color: #cf1322;
+      font-weight: 700;
+    }
+
+    .btn-large {
+      padding: 10px 14px;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .meter-container {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .meter-labels {
+      display: flex;
+      justify-content: space-between;
+      font-weight: 700;
+      font-size: 11px;
+    }
+
+    .meter-chicken { color: var(--chicken-color); }
+    .meter-mouse { color: var(--mouse-color); }
+    .meter-status { color: #475467; font-size: 10.5px; font-weight: 600; }
+
+    .meter-track {
+      height: 8px;
+      background: #e5e7eb;
+      border-radius: 999px;
+      display: flex;
+      overflow: hidden;
+    }
+
+    .meter-fill-chicken { background: var(--chicken-color); width: 50%; transition: width 0.3s ease; }
+    .meter-fill-crab { background: var(--crab-color); width: 0%; transition: width 0.3s ease; }
+    .meter-fill-mouse { background: var(--mouse-color); width: 50%; transition: width 0.3s ease; }
+
+    .status-box {
+      background: #ffffff;
+      border: 1px solid #e5e7eb;
+      border-radius: 6px;
+      padding: 6px 10px;
+      font-size: 11px;
+      color: #344054;
+      line-height: 1.35;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 1px 5px;
+      border-radius: 4px;
+      font-weight: 700;
+      font-size: 9.5px;
+    }
+    .badge-green { background: #ecfdf3; color: #027a48; }
+
+    .base-info-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 10px;
+      color: #667085;
+      padding: 2px 4px;
+      background: #f2f4f7;
+      border-radius: 4px;
+    }
+
+    .regiment-roster {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      max-height: 110px;
+      overflow-y: auto;
+      font-size: 10px;
+      color: #475467;
+    }
+    .regiment-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 3px 6px;
+      background: #ffffff;
+      border: 1px solid #eaecf0;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <div class="header">
+    <div class="title-group">
+      <span class="title-icon">🐔🏰🦀🐭</span>
+      <div class="title-text">
+        <h1>Cluck & Squeak</h1>
+        <span>Perpetual FigJam Regiments Engine</span>
+      </div>
+    </div>
+    <span class="badge badge-green">⚡ REGIMENTAL FORMATIONS</span>
+  </div>
+
+  <!-- 1. Primary Simulation Controls -->
+  <div class="card">
+    <button id="btn-play" class="btn btn-primary btn-large">▶ START / RESUME WORLD</button>
+    <div class="button-row">
+      <button id="btn-spawn-bases" class="btn btn-secondary">🏛️ Setup Bases</button>
+      <button id="btn-spawn-army" class="btn btn-secondary">✨ Deploy Regiments</button>
+    </div>
+    <div class="button-row">
+      <button id="btn-focus" class="btn btn-secondary">🎯 Focus Battle</button>
+      <button id="btn-sound" class="btn btn-secondary">🔇 Sound: OFF</button>
+      <button id="btn-resync" class="btn btn-sync" title="Rescan canvas if you moved bases or stickers">🎯 Resync</button>
+    </div>
+  </div>
+
+  <!-- 2. Campaign State & Balance of Power -->
+  <div class="card">
+    <div class="card-title" style="display: flex; justify-content: space-between; align-items: center;">
+      <span>Civilization Campaign</span>
+      <span id="lbl-era" class="badge" style="background:#f3e8ff; color:#7e22ce;">🏛️ Era I: Tribal</span>
+    </div>
+    <div class="meter-container">
+      <div class="meter-labels">
+        <span class="meter-chicken">🐔 Dominion: <b id="lbl-chicken">0</b></span>
+        <span id="lbl-status" class="meter-status">🛡️ Campaign: MUSTER</span>
+        <span class="meter-mouse"><b id="lbl-mouse">0</b> :Kingdom 🐭</span>
+      </div>
+      <div class="meter-track">
+        <div id="bar-chicken" class="meter-fill-chicken"></div>
+        <div id="bar-crab" class="meter-fill-crab"></div>
+        <div id="bar-mouse" class="meter-fill-mouse"></div>
+      </div>
+    </div>
+    <div id="dispatch-banner" class="status-box">
+      🎺 Generals assemble recruits into wedges & phalanxes, marching in lockstep across FigJam!
+    </div>
+    <div style="display: flex; justify-content: space-between; padding: 4px 0; font-size: 11px;">
+      <span>🌾 Grain: <b id="lbl-grain">60</b></span>
+      <span id="lbl-volleys" style="color: #667085;">🏹 Volleys: 0</span>
+      <span>🧀 Cheese: <b id="lbl-cheese">60</b></span>
+    </div>
+  </div>
+
+  <!-- 3. Recent Campaign Events (Max 20) -->
+  <div class="card">
+    <div class="card-title">Recent Campaign Events (Recorded)</div>
+    <div id="recent-events-list" style="display: flex; flex-direction: column; gap: 4px; max-height: 95px; overflow-y: auto; font-size: 10.5px; color: #475467;">
+      <div style="font-style: italic; color: #98a2b3;">No major events recorded yet.</div>
+    </div>
+  </div>
+
+  <!-- 4. Active Regiments Roster -->
+  <div class="card">
+    <div class="card-title">Active Regimental Formations</div>
+    <div id="regiment-roster" class="regiment-roster">
+      <div class="regiment-item"><span>🚩 1st Royal Rooster Lancers (Wedge)</span><span>[LOCKSTEP MARCH]</span></div>
+      <div class="regiment-item"><span>🚩 1st Toothpick Iron Phalanx (Box)</span><span>[LOCKSTEP MARCH]</span></div>
+    </div>
+  </div>
+
+  <!-- 5. Advanced Controls & Diagnostics (Collapsed by default) -->
+  <details id="advanced-details" style="background: #f9fafb; border: 1px solid var(--figma-border); border-radius: 8px; padding: 8px 10px;">
+    <summary style="font-weight: 700; cursor: pointer; color: #344054; font-size: 11px; text-transform: uppercase;">⚙️ Advanced Controls & Diagnostics</summary>
+    <div style="display: flex; flex-direction: column; gap: 8px; margin-top: 8px;">
+      <!-- Civilization Bases & Adoption -->
+      <div style="font-weight: 600; font-size: 10.5px; color: #475467;">Civilization Bases & Adoption</div>
+      <div id="base-status-row" class="base-info-row">
+        <span>🐔 West Base: Connected</span>
+        <span>🐭 East Base: Connected</span>
+      </div>
+      <div class="button-row">
+        <button id="btn-scan" class="btn btn-secondary">🔍 Scan Selected</button>
+        <button id="btn-scan-obs" class="btn btn-secondary">🗺️ Scan Obstacles</button>
+      </div>
+
+      <!-- Scenarios & Eras -->
+      <div style="font-weight: 600; font-size: 10.5px; color: #475467; margin-top: 4px;">Scenarios & Manual Commands</div>
+      <div class="button-row">
+        <button id="btn-truce" class="btn btn-secondary">🕊️ Declare Truce</button>
+        <button id="btn-upgrade-era" class="btn btn-secondary">⚡ Advance Era</button>
+      </div>
+      <div class="button-row">
+        <button id="btn-crabs" class="btn btn-crab">🦀 Summon Crab Horde!</button>
+        <button id="btn-raid" class="btn btn-secondary">⚔️ Order Base Raid</button>
+      </div>
+
+      <!-- Maintenance & Reset with 1-sentence explanations -->
+      <div style="font-weight: 600; font-size: 10.5px; color: #475467; margin-top: 4px;">Maintenance & Reset</div>
+      <div style="font-size: 10px; color: #667085;">Reset restores all surviving units to home muster yards without deleting anything.</div>
+      <button id="btn-reset" class="btn btn-secondary">🔄 Reset Positions</button>
+      <div style="font-size: 10px; color: #667085; margin-top: 2px;">Clear All completely removes all Cluck & Squeak bases, units, and markers from the board.</div>
+      <button id="btn-clean" class="btn btn-secondary" style="color: #b42318; border-color: #fecdca;">🧹 Clear All (Destructive)</button>
+
+      <!-- Simulation Diagnostics -->
+      <div style="font-weight: 600; font-size: 10.5px; color: #475467; margin-top: 4px;">Simulation Diagnostics</div>
+      <div id="diag-readout" style="background: #ffffff; border: 1px solid #eaecf0; border-radius: 4px; padding: 6px; font-family: monospace; font-size: 9.5px; line-height: 1.4; color: #344054;">
+        Sim: 20 Hz (50ms) | Render: 10 Hz (100ms)<br>
+        In-Flight Messages: 0 | Changed Nodes/Frame: 0<br>
+        Active Units: 0 | Regiments: 0 (Retired: 0)
+      </div>
+    </div>
+  </details>
+
+  <script>
+    /* __BUNDLE_ENGINE_SETTINGS__ */
+    /* __BUNDLE_ENGINE_CORE__ */
+    /* __BUNDLE_UI_CONTROLLER__ */
+  </script>
+</body>
+</html>

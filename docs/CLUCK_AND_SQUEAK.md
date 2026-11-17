@@ -11,4 +11,4 @@ I built a tiny war between chickens and mice and put it on a FigJam board. The f
 
 A seeded JavaScript engine steps the simulation independently of the renderer. A standalone browser version draws to Canvas, and a FigJam development plugin translates movement into board updates. The plugin batches updates so the board can keep up. Classroom mode records the starting sticker state so the host can restore it even after reopening the plugin.
 
-The classroom engine and plugin UI checks passed locally. The [standalone browser source](../projects/cluck-and-squeak) is available here. The FigJam plugin remains in my development copy.
+The classroom engine and plugin UI checks passed locally. The [standalone browser source](../projects/cluck-and-squeak) is available here. The [FigJam plugin source and setup instructions](../projects/cluck-and-squeak#run-in-figjam) are also available.
